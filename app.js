@@ -43,6 +43,7 @@ async function init(){
     const res=await fetch("products.json",{cache:"no-store"});
     if(!res.ok) throw new Error("No se pudo cargar products.json");
     products=await res.json();
+    products=products.map(p=>({...p,image:p.image.split("/").pop()}));
     const categories=[...new Set(products.filter(p=>p.active!==false).map(p=>p.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
     category.innerHTML='<option value="">Todas las categorías</option>'+categories.map(c=>`<option value="${safeText(c)}">${safeText(c)}</option>`).join("");
     render();
