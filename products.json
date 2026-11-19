@@ -1,0 +1,282 @@
+[
+  {
+    "id": "AS-001",
+    "name": "Medias con estilo – diseños tiernos",
+    "category": "Accesorios",
+    "price": null,
+    "stock": null,
+    "description": "Medias cómodas con diseños tiernos y divertidos. Consulta los modelos disponibles.",
+    "image": "assets/productos/producto-01.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-002",
+    "name": "Medias con estilo – edición dark",
+    "category": "Accesorios",
+    "price": 8000,
+    "stock": null,
+    "description": "Medias con diseños alternativos y estilo dark. Precio especial: 2 pares por $15.000.",
+    "image": "assets/productos/producto-02.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-003",
+    "name": "Vino artesanal de borojó",
+    "category": "Vinos y cremas artesanales",
+    "price": 16000,
+    "stock": null,
+    "description": "Vino artesanal de borojó, dulce y suave. Ideal para compartir momentos especiales.",
+    "image": "assets/productos/producto-03.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-004",
+    "name": "Cremas artesanales de whisky",
+    "category": "Vinos y cremas artesanales",
+    "price": 16000,
+    "stock": null,
+    "description": "Cremas artesanales en sabores maracuyá, uva, coco y café.",
+    "image": "assets/productos/producto-04.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-005",
+    "name": "Antifaz térmico frío/caliente",
+    "category": "Bienestar y cuidado personal",
+    "price": 10000,
+    "stock": null,
+    "description": "Antifaz de peluche con gel. Se puede usar frío o caliente para acompañar tu rutina de descanso.",
+    "image": "assets/productos/producto-05.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-006",
+    "name": "Espejitos llavero con brillo",
+    "category": "Accesorios",
+    "price": 15000,
+    "stock": null,
+    "description": "Doble espejo y llavero con shaker de purpurina. Práctico, tierno y fácil de llevar.",
+    "image": "assets/productos/producto-06.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-007",
+    "name": "Tarritos de moñitas",
+    "category": "Accesorios",
+    "price": 5000,
+    "stock": null,
+    "description": "Tarrito práctico con cauchos y ganchitos para el cabello. Colores surtidos.",
+    "image": "assets/productos/producto-07.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-008",
+    "name": "Intercomunicador para casco Q58-MAX",
+    "category": "Tecnología y accesorios",
+    "price": 50000,
+    "stock": null,
+    "description": "Intercomunicador inalámbrico para casco con Bluetooth, radio FM y manos libres.",
+    "image": "assets/productos/producto-08.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-009",
+    "name": "Set anillos góticos – 17 unidades",
+    "category": "Accesorios",
+    "price": 4500,
+    "stock": null,
+    "description": "Set de 17 anillos con diseños góticos y alternativos. Precio por unidad.",
+    "image": "assets/productos/producto-09.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-010",
+    "name": "Set aretes góticos – 6 pares",
+    "category": "Accesorios",
+    "price": 4500,
+    "stock": null,
+    "description": "Seis pares de aretes con diseños dark y alternativos. Precio por set.",
+    "image": "assets/productos/producto-10.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-011",
+    "name": "Set aretes góticos – edición dark",
+    "category": "Accesorios",
+    "price": 4500,
+    "stock": null,
+    "description": "Aretes de estilo gótico con detalles llamativos. Precio por unidad/par según disponibilidad.",
+    "image": "assets/productos/producto-11.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-012",
+    "name": "Mascarillas faciales de colágeno",
+    "category": "Belleza y maquillaje",
+    "price": 8000,
+    "stock": null,
+    "description": "Mascarillas faciales de hidrogel Rose y 24K Gold para una rutina de cuidado facial.",
+    "image": "assets/productos/producto-12.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-013",
+    "name": "Parches y mascarillas skincare",
+    "category": "Belleza y maquillaje",
+    "price": 2500,
+    "stock": null,
+    "description": "Parches para labios, ojos y rostro. Unidad $2.500; promoción de 2 por $4.000.",
+    "image": "assets/productos/producto-13.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-014",
+    "name": "Bolsa de agua caliente peluchuda mini",
+    "category": "Bienestar y cuidado personal",
+    "price": 25000,
+    "stock": null,
+    "description": "Bolsa de agua caliente con cubierta suave de peluche. Ayuda a brindar confort en días fríos.",
+    "image": "assets/productos/producto-14.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-015",
+    "name": "Ventilador de mano portátil – 199 velocidades",
+    "category": "Tecnología y accesorios",
+    "price": 35000,
+    "stock": null,
+    "description": "Ventilador portátil recargable, plegable y con múltiples niveles de velocidad.",
+    "image": "assets/productos/producto-15.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-016",
+    "name": "Bolsa de agua caliente peluchuda",
+    "category": "Bienestar y cuidado personal",
+    "price": 38000,
+    "stock": null,
+    "description": "Bolsa de agua caliente con cubierta suave. Ideal para acompañar momentos de descanso.",
+    "image": "assets/productos/producto-16.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-017",
+    "name": "Llavero casco mini KMD",
+    "category": "Accesorios",
+    "price": 10000,
+    "stock": null,
+    "description": "Llavero mini de casco con visor tornasol y detalle metálico.",
+    "image": "assets/productos/producto-17.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-018",
+    "name": "Limas de uñas kawaii – grano 100/180",
+    "category": "Belleza y maquillaje",
+    "price": 4000,
+    "stock": null,
+    "description": "Limas de uñas con diseños tiernos y coloridos. Precio por unidad.",
+    "image": "assets/productos/producto-18.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-019",
+    "name": "Llaveros tiernos 3D",
+    "category": "Accesorios",
+    "price": 13000,
+    "stock": null,
+    "description": "Llaveros con diseños 3D tiernos para decorar llaves, bolso o mochila.",
+    "image": "assets/productos/producto-19.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-020",
+    "name": "Limas de uñas kawaii – pack x 3",
+    "category": "Belleza y maquillaje",
+    "price": 3000,
+    "stock": null,
+    "description": "Pack de tres limas de uñas con diseños de animalitos kawaii.",
+    "image": "assets/productos/producto-20.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-021",
+    "name": "Libros para colorear antiestrés – Line Art",
+    "category": "Entretenimiento y detalles",
+    "price": 10000,
+    "stock": null,
+    "description": "Libros para colorear con ilustraciones Line Art. Una opción creativa para relajarse.",
+    "image": "assets/productos/producto-21.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-022",
+    "name": "Squeeze desestresantes",
+    "category": "Entretenimiento y detalles",
+    "price": null,
+    "stock": null,
+    "description": "Figuras suaves y divertidas para apretar y estirar. Modelos desde $2.000 hasta $12.000.",
+    "image": "assets/productos/producto-22.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-023",
+    "name": "Mini Blocks Halloween armables",
+    "category": "Entretenimiento y detalles",
+    "price": 8000,
+    "stock": null,
+    "description": "Mini bloques armables con tres modelos de temática Halloween.",
+    "image": "assets/productos/producto-23.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-024",
+    "name": "Bálsamo labial frutal ADMID",
+    "category": "Belleza y maquillaje",
+    "price": 3000,
+    "stock": null,
+    "description": "Bálsamo labial de 7 g con extractos frutales para hidratar y suavizar los labios.",
+    "image": "assets/productos/producto-24.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-025",
+    "name": "Esponjitas kawaii con soporte",
+    "category": "Belleza y maquillaje",
+    "price": 4000,
+    "stock": null,
+    "description": "Esponjitas de maquillaje con soporte, lavables y reutilizables.",
+    "image": "assets/productos/producto-25.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-026",
+    "name": "Kit Beauty Ruby Face",
+    "category": "Belleza y maquillaje",
+    "price": 20000,
+    "stock": null,
+    "description": "Kit de belleza con diadema spa y masajeador facial.",
+    "image": "assets/productos/producto-26.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-027",
+    "name": "Kit skincare spa",
+    "category": "Bienestar y cuidado personal",
+    "price": 22000,
+    "stock": null,
+    "description": "Kit para preparar tu rutina de cuidado facial. Incluye balaca, muñequeras, esponjita y pinza.",
+    "image": "assets/productos/producto-27.jpg",
+    "active": true
+  },
+  {
+    "id": "AS-028",
+    "name": "Parches para acné en forma de estrellita",
+    "category": "Belleza y maquillaje",
+    "price": 5000,
+    "stock": null,
+    "description": "Parches hidrocoloides para granitos. Paquete con 120 parches.",
+    "image": "assets/productos/producto-28.jpg",
+    "active": true
+  }
+]

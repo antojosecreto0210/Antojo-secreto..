@@ -1,0 +1,46 @@
+ANTOJO SECRETO – MUNDO DE DETALLES
+====================================
+
+ARCHIVOS
+- index.html: tienda pública.
+- styles.css: diseño adaptable a móviles, tabletas y computadores.
+- app.js: buscador, categorías, tarjetas y enlaces a WhatsApp.
+- products.json: catálogo inicial con 28 entradas transcritas del PDF.
+- admin.html: panel separado de administración.
+- admin.js: agregar, editar, eliminar e importar/exportar catálogo.
+- assets/: logo y fotografías de las 28 páginas del PDF.
+
+PUBLICAR EN GITHUB PAGES
+1. Descarga y descomprime este ZIP.
+2. En GitHub abre el repositorio Antojo-secreto.
+3. Sube TODO el contenido de esta carpeta a la raíz del repositorio (no subas la carpeta contenedora como una carpeta adicional).
+4. Acepta reemplazar index.html, styles.css, app.js y products.json si GitHub lo pregunta.
+5. Asegúrate de que la carpeta assets quede en la raíz, al mismo nivel que index.html.
+6. Espera a que GitHub Pages publique los cambios.
+
+ENLACES
+- Tienda: https://antojosecreto0210.github.io/Antojo-secreto/
+- Administración: https://antojosecreto0210.github.io/Antojo-secreto/admin.html
+
+ADMINISTRACIÓN
+- Abre admin.html desde la web publicada.
+- Agrega, edita o elimina productos.
+- Para imágenes nuevas, selecciona una foto desde tu equipo; el panel la optimiza y la incorpora al JSON.
+- Descarga el archivo products.json actualizado.
+- En GitHub reemplaza el products.json de la raíz por el descargado y confirma el commit.
+- Los cambios se verán en la tienda al publicarse la actualización.
+
+IMPORTANTE SOBRE SEGURIDAD
+GitHub Pages solo sirve archivos estáticos. Este panel NO tiene autenticación privada ni sincroniza cambios automáticamente. No compartas el enlace administrativo públicamente y no lo uses en dispositivos compartidos. Cualquier persona que conozca la URL puede abrir el panel. Para un administrador con acceso privado real y cambios en línea se requiere conectar un backend con autenticación (por ejemplo, Supabase o Firebase).
+
+DATOS INICIALES
+- WhatsApp: +57 305 294 2120
+- Instagram: @antojo_secreto01
+- TikTok: @antojosecreto01
+- Pagos indicados: Bancolombia, Nequi, Daviplata/Llave y efectivo.
+- Stock: se deja como “Consultar disponibilidad” porque el PDF no indica cantidades actuales.
+- Productos sin precio claramente visible: aparecen como “Consultar precio”.
+- Algunas páginas del PDF muestran varias referencias en una sola imagen; cada tarjeta usa la página completa como fotografía para no inventar recortes o imágenes individuales.
+
+NOTA
+Revisa el nombre y el precio de cada artículo antes de promocionar la tienda. Los textos y precios se transcribieron visualmente del PDF y conviene validar cualquier cifra poco legible.
