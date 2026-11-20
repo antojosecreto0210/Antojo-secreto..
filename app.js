@@ -1,4 +1,4 @@
-```javascript
+
 const WHATSAPP = "573052942120";
 
 const SUPABASE_URL = "https://bdpsezwfhvowtchejkwc.supabase.co";
@@ -182,4 +182,3 @@ nav.querySelectorAll("a").forEach(a => {
 });
 
 init();
-
