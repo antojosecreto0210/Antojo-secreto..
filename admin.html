@@ -1,14 +1,291 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Administración | Antojo Secreto</title><link rel="stylesheet" href="styles.css"><style>
-body{background:#f7f3ec}.admin-wrap{width:min(1050px,94%);margin:35px auto}.admin-head{background:#0a0907;color:#fff;padding:25px;border-radius:10px}.admin-head h1{font:500 38px "Cormorant Garamond",Georgia,serif;margin:0;color:#f1d28a}.admin-head p{margin:6px 0;color:#ddd}.admin-warning{background:#fff5d9;border:1px solid #e8cf8a;padding:14px;border-radius:8px;font-size:13px;margin:18px 0}.admin-panel{background:#fff;padding:22px;border:1px solid #e7dece;border-radius:9px;margin:18px 0}.admin-panel h2{font:600 25px "Cormorant Garamond",serif;margin:0 0 15px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.form-grid label{font-size:12px;font-weight:700;color:#5c5144;display:grid;gap:5px}.form-grid input,.form-grid select,.form-grid textarea{width:100%;padding:11px;border:1px solid #ddd2c1;border-radius:5px;font:inherit}.form-grid textarea{min-height:75px}.wide{grid-column:1/-1}.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.admin-btn{border:0;border-radius:5px;padding:11px 16px;background:#17130d;color:#fff;font-weight:700;cursor:pointer}.admin-btn.gold{background:#c18a35;color:#140f08}.admin-btn.red{background:#9b3434}.admin-list{display:grid;gap:8px}.admin-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px;border:1px solid #eee4d7;border-radius:6px}.admin-item small{display:block;color:#766f66}.admin-item button{padding:7px 10px}.admin-foot{font-size:12px;color:#756d61}.preview{width:64px;height:64px;object-fit:cover;border-radius:5px;background:#eee}.admin-item-main{display:flex;align-items:center;gap:12px;min-width:0}.admin-item-main span{overflow-wrap:anywhere}@media(max-width:600px){.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}.admin-item{align-items:flex-start}.admin-item .admin-actions{margin:0;flex-direction:column}}
-</style></head><body><main class="admin-wrap"><header class="admin-head"><h1>Antojo Secreto · Administración</h1><p>Gestiona el catálogo y descarga el archivo actualizado para publicarlo.</p></header>
-<div class="admin-warning"><strong>Importante:</strong> GitHub Pages es un sitio estático. Este panel no tiene inicio de sesión seguro ni guarda cambios directamente en internet. Los cambios se guardan en este navegador y debes descargar <b>products.json</b> y reemplazar ese archivo en GitHub para que los clientes vean las actualizaciones. No uses este panel en un computador público.</div>
-<section class="admin-panel"><h2>Agregar o editar producto</h2><form id="productForm"><input type="hidden" id="editId"><div class="form-grid">
-<label>Nombre del producto<input id="name" required maxlength="100"></label>
-<label>Categoría<input id="cat" list="categories" required><datalist id="categories"></datalist></label>
-<label>Precio en pesos (COP)<input id="price" type="number" min="0" step="500" placeholder="Ej. 15000"></label>
-<label>Unidades disponibles<input id="stock" type="number" min="0" step="1" placeholder="Dejar vacío si no se controla"></label>
-<label class="wide">Descripción<textarea id="desc" maxlength="300"></textarea></label>
-<label class="wide">Fotografía del producto<input id="photo" type="file" accept="image/*"><small>La imagen se optimiza en este navegador y se guarda dentro del archivo JSON exportado.</small></label>
-</div><div class="admin-actions"><button class="admin-btn gold" type="submit">Guardar producto</button><button class="admin-btn" type="button" id="resetForm">Limpiar</button></div></form></section>
-<section class="admin-panel"><h2>Productos del catálogo</h2><div class="admin-actions"><button class="admin-btn gold" id="exportBtn">Descargar products.json actualizado</button><button class="admin-btn" id="importBtn">Cargar products.json</button><input id="importFile" type="file" accept=".json,application/json" hidden></div><p class="admin-foot">Después de descargar, sube el archivo products.json a la carpeta principal del repositorio y confirma el cambio en GitHub.</p><div class="admin-list" id="adminList"></div></section>
-<p><a href="index.html">← Volver a la tienda</a></p></main><script src="admin.js"></script></body></html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Administración | Antojo Secreto</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;background:#111;color:#f5f0e6;font-family:Arial,sans-serif}
+.container{max-width:1100px;margin:auto}
+h1,h2{color:#d5b36a}
+.panel{background:#1c1c1c;border:1px solid #806b3d;border-radius:12px;padding:22px;margin:20px 0}
+input,textarea,button{width:100%;padding:12px;margin:7px 0 14px;border-radius:7px;font-size:15px}
+input,textarea{background:#292929;color:white;border:1px solid #555}
+textarea{min-height:85px}
+label{display:block;color:#e2c987}
+button{background:#c5a45c;color:#111;border:0;font-weight:bold;cursor:pointer}
+.secondary{background:#444;color:white}
+.danger{background:#8d2929;color:white}
+.hidden{display:none}
+.checks{display:flex;gap:20px;flex-wrap:wrap}
+.checks label{display:flex;align-items:center;gap:8px}
+.checks input{width:auto;margin:0}
+.product{border-top:1px solid #555;padding:14px 0}
+.product strong{color:#e2c987}
+.product button{width:auto;padding:9px 14px;margin-right:7px}
+#message{color:#e2c987;white-space:pre-wrap}
+.help{color:#bbb;font-size:13px}
+</style>
+</head>
+<body>
+<main class="container">
+<h1>Antojo Secreto</h1>
+<p>Panel privado de administración</p>
+
+<section id="loginPanel" class="panel">
+<h2>Iniciar sesión</h2>
+<form id="loginForm">
+<label>Correo electrónico</label>
+<input id="email" type="email" required autocomplete="username">
+<label>Contraseña</label>
+<input id="password" type="password" required autocomplete="current-password">
+<button type="submit">Entrar al panel</button>
+</form>
+</section>
+
+<section id="adminPanel" class="hidden">
+<div class="panel">
+<h2>Administrar productos</h2>
+<button id="logoutButton" class="secondary" type="button">Cerrar sesión</button>
+
+<form id="productForm">
+<h2 id="formTitle">Agregar producto</h2>
+
+<label>Código del producto</label>
+<input id="codigo" placeholder="Ejemplo: AS-029" required>
+
+<label>Nombre del producto</label>
+<input id="nombre" required>
+
+<label>Categoría</label>
+<input id="categoria" required>
+
+<label>Precio en pesos colombianos</label>
+<input id="precio" type="number" min="0" step="1">
+
+<label>Descripción</label>
+<textarea id="descripcion"></textarea>
+
+<label>Ruta de la imagen</label>
+<input id="imagen" placeholder="assets/productos/producto-01.jpg">
+<p class="help">Por ahora escribe la ruta de una imagen que ya esté en tu sitio. La subida de fotos desde el computador será el siguiente paso.</p>
+
+<label>Existencias</label>
+<input id="existencias" type="number" min="0" step="1">
+
+<div class="checks">
+<label><input id="activo" type="checkbox" checked> Producto visible en la tienda</label>
+<label><input id="disponible" type="checkbox" checked> Disponible</label>
+</div>
+
+<button type="submit" id="saveButton">Guardar producto</button>
+<button type="button" id="cancelButton" class="secondary hidden">Cancelar edición</button>
+</form>
+</div>
+
+<div class="panel">
+<h2>Productos registrados</h2>
+<button id="refreshButton" class="secondary" type="button">Actualizar catálogo</button>
+<div id="productList">Cargando productos...</div>
+</div>
+</section>
+
+<p id="message"></p>
+<p><a href="index.html" style="color:#d5b36a">← Volver a la tienda</a></p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL="https://bdpsezwfhvowtchejkwc.supabase.co";
+const SUPABASE_KEY="sb_publishable_AeQxATh185F1r4Oepx_b1A_wRR0ZI1m";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const loginPanel=document.getElementById("loginPanel");
+const adminPanel=document.getElementById("adminPanel");
+const message=document.getElementById("message");
+const productList=document.getElementById("productList");
+const productForm=document.getElementById("productForm");
+
+let editingCode=null;
+
+function showMessage(text){message.textContent=text;}
+
+function escapeHTML(value=""){
+return String(value).replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+}
+
+function showAdmin(logged){
+loginPanel.classList.toggle("hidden",logged);
+adminPanel.classList.toggle("hidden",!logged);
+}
+
+async function loadProducts(){
+productList.textContent="Cargando productos...";
+
+const {data,error}=await db
+.from("productos")
+.select("*")
+.order("codigo",{ascending:true});
+
+if(error){
+productList.textContent="Error al cargar: "+error.message;
+return;
+}
+
+if(!data.length){
+productList.textContent="No hay productos registrados.";
+return;
+}
+
+productList.innerHTML=data.map(p=>`
+<div class="product">
+<strong>${escapeHTML(p.codigo)} · ${escapeHTML(p.nombre)}</strong>
+<p>Precio: ${p.precio==null?"Consultar":"$"+Number(p.precio).toLocaleString("es-CO")}</p>
+<p>Existencias: ${p.existencias??"Sin especificar"}</p>
+<p>${p.activo===false?"Oculto":"Visible"} · ${p.disponible===false?"No disponible":"Disponible"}</p>
+<button type="button" data-edit="${escapeHTML(p.codigo)}">Editar</button>
+<button type="button" class="danger" data-delete="${escapeHTML(p.codigo)}">Eliminar</button>
+</div>
+`).join("");
+}
+
+function resetForm(){
+productForm.reset();
+document.getElementById("activo").checked=true;
+document.getElementById("disponible").checked=true;
+document.getElementById("codigo").readOnly=false;
+editingCode=null;
+document.getElementById("formTitle").textContent="Agregar producto";
+document.getElementById("saveButton").textContent="Guardar producto";
+document.getElementById("cancelButton").classList.add("hidden");
+}
+
+function editProduct(p){
+editingCode=p.codigo;
+document.getElementById("codigo").value=p.codigo||"";
+document.getElementById("codigo").readOnly=true;
+document.getElementById("nombre").value=p.nombre||"";
+document.getElementById("categoria").value=p.categoria||"";
+document.getElementById("precio").value=p.precio??"";
+document.getElementById("descripcion").value=p.descripcion||"";
+document.getElementById("imagen").value=p.imagen||"";
+document.getElementById("existencias").value=p.existencias??"";
+document.getElementById("activo").checked=p.activo!==false;
+document.getElementById("disponible").checked=p.disponible!==false;
+document.getElementById("formTitle").textContent="Editar producto "+p.codigo;
+document.getElementById("saveButton").textContent="Guardar cambios";
+document.getElementById("cancelButton").classList.remove("hidden");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.getElementById("loginForm").addEventListener("submit",async e=>{
+e.preventDefault();
+showMessage("Verificando acceso...");
+
+const {error}=await db.auth.signInWithPassword({
+email:document.getElementById("email").value,
+password:document.getElementById("password").value
+});
+
+if(error){
+showMessage("No se pudo iniciar sesión: "+error.message);
+return;
+}
+
+showMessage("Sesión iniciada correctamente.");
+showAdmin(true);
+await loadProducts();
+});
+
+document.getElementById("logoutButton").addEventListener("click",async()=>{
+await db.auth.signOut();
+showAdmin(false);
+resetForm();
+showMessage("Sesión cerrada.");
+});
+
+productForm.addEventListener("submit",async e=>{
+e.preventDefault();
+showMessage("Guardando producto...");
+
+const payload={
+codigo:document.getElementById("codigo").value.trim(),
+nombre:document.getElementById("nombre").value.trim(),
+categoria:document.getElementById("categoria").value.trim(),
+precio:document.getElementById("precio").value===""?null:Number(document.getElementById("precio").value),
+descripcion:document.getElementById("descripcion").value.trim(),
+imagen:document.getElementById("imagen").value.trim(),
+existencias:document.getElementById("existencias").value===""?null:Number(document.getElementById("existencias").value),
+activo:document.getElementById("activo").checked,
+disponible:document.getElementById("disponible").checked
+};
+
+const result=editingCode
+?await db.from("productos").update(payload).eq("codigo",editingCode)
+:await db.from("productos").insert(payload);
+
+if(result.error){
+showMessage("No se pudo guardar: "+result.error.message);
+return;
+}
+
+showMessage("¡Producto guardado correctamente!");
+resetForm();
+await loadProducts();
+});
+
+productList.addEventListener("click",async e=>{
+const editCode=e.target.dataset.edit;
+const deleteCode=e.target.dataset.delete;
+
+if(editCode){
+const {data,error}=await db.from("productos")
+.select("*").eq("codigo",editCode).single();
+
+if(error){
+showMessage("No se pudo abrir: "+error.message);
+return;
+}
+editProduct(data);
+}
+
+if(deleteCode){
+if(!confirm("¿Seguro que quieres eliminar "+deleteCode+"?"))return;
+
+const {error}=await db.from("productos")
+.delete().eq("codigo",deleteCode);
+
+if(error){
+showMessage("No se pudo eliminar: "+error.message);
+return;
+}
+
+showMessage("Producto eliminado.");
+if(editingCode===deleteCode)resetForm();
+await loadProducts();
+}
+});
+
+document.getElementById("cancelButton").addEventListener("click",resetForm);
+document.getElementById("refreshButton").addEventListener("click",loadProducts);
+
+async function checkSession(){
+const {data}=await db.auth.getSession();
+showAdmin(Boolean(data.session));
+if(data.session)await loadProducts();
+}
+
+db.auth.onAuthStateChange((_event,session)=>{
+showAdmin(Boolean(session));
+if(session)loadProducts();
+});
+
+checkSession();
+</script>
+</body>
+</html>
