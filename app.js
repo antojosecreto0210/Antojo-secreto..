@@ -1,4 +1,4 @@
-
+```javascript
 const WHATSAPP = "573052942120";
 
 const SUPABASE_URL = "https://bdpsezwfhvowtchejkwc.supabase.co";
@@ -120,16 +120,22 @@ async function init() {
 
     const data = await response.json();
 
-    products = data.map(p => ({
-      id: p.codigo,
-      name: p.nombre || "",
-      category: p.categoria || "",
-      price: p.precio,
-      stock: null,
-      description: p.descripcion || "",
-      image: (p.imagen || "").split("/").pop(),
-      active: p.activo
-    }));
+    products = data.map(p => {
+      const imagePath = p.imagen || "";
+
+      return {
+        id: p.codigo,
+        name: p.nombre || "",
+        category: p.categoria || "",
+        price: p.precio,
+        stock: null,
+        description: p.descripcion || "",
+        image: imagePath.startsWith("http")
+          ? imagePath
+          : imagePath.split("/").pop(),
+        active: p.activo
+      };
+    });
 
     const categories = [
       ...new Set(
@@ -176,3 +182,4 @@ nav.querySelectorAll("a").forEach(a => {
 });
 
 init();
+```
