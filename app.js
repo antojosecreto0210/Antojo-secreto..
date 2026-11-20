@@ -1,4 +1,3 @@
-
 const WHATSAPP = "573052942120";
 
 const SUPABASE_URL = "https://bdpsezwfhvowtchejkwc.supabase.co";
@@ -36,13 +35,13 @@ function stockText(stock) {
   return stock === null || stock === undefined || stock === ""
     ? "Consultar disponibilidad"
     : Number(stock) > 0
-      ? `${stock} disponibles`
+      ? ${stock} disponibles
       : "Agotado";
 }
 
 function whatsappUrl(p) {
-  const message = `Hola Antojo Secreto, quiero este producto: ${p.name}. Precio: ${money(p.price)}. ¿Me confirmas disponibilidad?`;
-  return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+  const message = Hola Antojo Secreto, quiero este producto: ${p.name}. Precio: ${money(p.price)}. ¿Me confirmas disponibilidad?;
+  return https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)};
 }
 
 function render() {
@@ -50,7 +49,7 @@ function render() {
 
   let list = products.filter(p =>
     p.active !== false &&
-    (!term || `${p.name} ${p.description} ${p.category}`.toLocaleLowerCase("es").includes(term)) &&
+    (!term || ${p.name} ${p.description} ${p.category}.toLocaleLowerCase("es").includes(term)) &&
     (!category.value || p.category === category.value)
   );
 
@@ -66,7 +65,7 @@ function render() {
     list.sort((a, b) => a.name.localeCompare(b.name, "es"));
   }
 
-  count.textContent = `${list.length} producto${list.length === 1 ? "" : "s"}`;
+  count.textContent = ${list.length} producto${list.length === 1 ? "" : "s"};
   empty.hidden = list.length > 0;
 
   grid.innerHTML = list.map(p => `
@@ -103,11 +102,11 @@ async function init() {
 
   try {
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/productos?select=codigo,nombre,categoria,precio,descripcion,imagen,activo&order=codigo.asc`,
+      ${SUPABASE_URL}/rest/v1/productos?select=codigo,nombre,categoria,precio,descripcion,imagen,activo&order=codigo.asc,
       {
         headers: {
           apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`,
+          Authorization: Bearer ${SUPABASE_KEY},
           Accept: "application/json"
         },
         cache: "no-store"
@@ -143,7 +142,7 @@ async function init() {
     category.innerHTML =
       '<option value="">Todas las categorías</option>' +
       categories.map(c =>
-        `<option value="${safeText(c)}">${safeText(c)}</option>`
+        <option value="${safeText(c)}">${safeText(c)}</option>
       ).join("");
 
     render();
