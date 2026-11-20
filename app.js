@@ -182,4 +182,4 @@ nav.querySelectorAll("a").forEach(a => {
 });
 
 init();
-```
+
