@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -69,9 +69,13 @@ button{background:#c5a45c;color:#111;border:0;font-weight:bold;cursor:pointer}
 <label>Descripción</label>
 <textarea id="descripcion"></textarea>
 
-<label>Ruta de la imagen</label>
-<input id="imagen" placeholder="assets/productos/producto-01.jpg">
-<p class="help">Por ahora escribe la ruta de una imagen que ya esté en tu sitio. La subida de fotos desde el computador será el siguiente paso.</p>
+<label>Fotografía del producto</label>
+<input id="archivoImagen" type="file" accept="image/jpeg,image/png,image/webp">
+<p class="help">Selecciona una foto desde tu computador. Máximo 5 MB. Formatos: JPG, PNG o WEBP.</p>
+
+<label>Dirección de imagen (opcional)</label>
+<input id="imagen" placeholder="Se completará al subir una foto nueva">
+<p class="help">Si eliges una foto nueva, se guardará automáticamente aquí. Si no eliges otra, se conservará la imagen anterior.</p>
 
 <label>Existencias</label>
 <input id="existencias" type="number" min="0" step="1">
@@ -108,6 +112,7 @@ const adminPanel=document.getElementById("adminPanel");
 const message=document.getElementById("message");
 const productList=document.getElementById("productList");
 const productForm=document.getElementById("productForm");
+const archivoImagen=document.getElementById("archivoImagen");
 
 let editingCode=null;
 
@@ -156,6 +161,7 @@ productList.innerHTML=data.map(p=>`
 
 function resetForm(){
 productForm.reset();
+archivoImagen.value="";
 document.getElementById("activo").checked=true;
 document.getElementById("disponible").checked=true;
 document.getElementById("codigo").readOnly=false;
@@ -174,6 +180,7 @@ document.getElementById("categoria").value=p.categoria||"";
 document.getElementById("precio").value=p.precio??"";
 document.getElementById("descripcion").value=p.descripcion||"";
 document.getElementById("imagen").value=p.imagen||"";
+archivoImagen.value="";
 document.getElementById("existencias").value=p.existencias??"";
 document.getElementById("activo").checked=p.activo!==false;
 document.getElementById("disponible").checked=p.disponible!==false;
@@ -181,6 +188,42 @@ document.getElementById("formTitle").textContent="Editar producto "+p.codigo;
 document.getElementById("saveButton").textContent="Guardar cambios";
 document.getElementById("cancelButton").classList.remove("hidden");
 window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function subirImagen(codigo){
+const file=archivoImagen.files[0];
+
+if(!file)return document.getElementById("imagen").value.trim();
+
+const tiposPermitidos=["image/jpeg","image/png","image/webp"];
+
+if(!tiposPermitidos.includes(file.type)){
+throw new Error("Formato no permitido. Usa JPG, PNG o WEBP.");
+}
+
+if(file.size>5*1024*1024){
+throw new Error("La fotografía supera el límite de 5 MB.");
+}
+
+const codigoSeguro=codigo.replace(/[^a-zA-Z0-9_-]/g,"");
+const nombreSeguro=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+const ruta=codigoSeguro+"/"+Date.now()+"-"+nombreSeguro;
+
+showMessage("Subiendo fotografía...");
+
+const {error}=await db.storage
+.from("productos")
+.upload(ruta,file,{contentType:file.type});
+
+if(error){
+throw new Error("No se pudo subir la fotografía: "+error.message);
+}
+
+const {data}=db.storage
+.from("productos")
+.getPublicUrl(ruta);
+
+return data.publicUrl;
 }
 
 document.getElementById("loginForm").addEventListener("submit",async e=>{
@@ -211,32 +254,53 @@ showMessage("Sesión cerrada.");
 
 productForm.addEventListener("submit",async e=>{
 e.preventDefault();
-showMessage("Guardando producto...");
+
+const codigo=document.getElementById("codigo").value.trim();
+
+if(!codigo){
+showMessage("Escribe el código del producto.");
+return;
+}
+
+const saveButton=document.getElementById("saveButton");
+saveButton.disabled=true;
+
+try{
+showMessage("Preparando producto...");
+
+const imagenUrl=await subirImagen(codigo);
 
 const payload={
-codigo:document.getElementById("codigo").value.trim(),
+codigo,
 nombre:document.getElementById("nombre").value.trim(),
 categoria:document.getElementById("categoria").value.trim(),
 precio:document.getElementById("precio").value===""?null:Number(document.getElementById("precio").value),
 descripcion:document.getElementById("descripcion").value.trim(),
-imagen:document.getElementById("imagen").value.trim(),
+imagen:imagenUrl,
 existencias:document.getElementById("existencias").value===""?null:Number(document.getElementById("existencias").value),
 activo:document.getElementById("activo").checked,
 disponible:document.getElementById("disponible").checked
 };
+
+showMessage("Guardando producto...");
 
 const result=editingCode
 ?await db.from("productos").update(payload).eq("codigo",editingCode)
 :await db.from("productos").insert(payload);
 
 if(result.error){
-showMessage("No se pudo guardar: "+result.error.message);
-return;
+throw new Error("No se pudo guardar: "+result.error.message);
 }
 
 showMessage("¡Producto guardado correctamente!");
 resetForm();
 await loadProducts();
+
+}catch(error){
+showMessage(error.message);
+}finally{
+saveButton.disabled=false;
+}
 });
 
 productList.addEventListener("click",async e=>{
@@ -289,3 +353,4 @@ checkSession();
 </script>
 </body>
 </html>
+```
